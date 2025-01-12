@@ -20,7 +20,7 @@ Ensure you have the following installed:
 1. **Clone the repository**:
 
    ```bash
-   git clone <repository_url>
+   git clone [<repository_url>](https://github.com/lmhdev/web-dev-tech-assessment)
    cd <repository_directory>
    ```
 
