@@ -58,6 +58,12 @@ This project includes a suite of automated tests to ensure quality and functiona
 npm run test
 ```
 
+### To run code coverage:
+
+```bash
+npm run coverage
+```
+
 - The test runner will execute all test files and output the results in the terminal.
 
 ### Testing Frameworks:
@@ -87,3 +93,9 @@ src/
 ├── App.tsx       # Root application component
 └── main.tsx      # Entry point for the application
 ```
+
+## Application screenshot
+
+![Search Bar Suggestions](./public/search-suggestion.PNG)
+![Search Results](./public/search-result.PNG)
+![No internet error](./public/no-internet.PNG)
