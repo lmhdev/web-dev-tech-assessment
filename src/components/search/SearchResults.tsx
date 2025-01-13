@@ -47,7 +47,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
             {`Showing ${hasResults ? "1-10" : "0"} of ${pagination.totalItems} results`}
           </div>
         ) : (
-          <p className="text-center text-gray-600">No results found</p>
+          !loading && <p className="text-center text-gray-600">No results found</p>
         )}
 
         {results.map((item) => (
