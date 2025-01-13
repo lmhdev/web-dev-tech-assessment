@@ -99,3 +99,5 @@ src/
 ![Search Bar Suggestions](./public/search-suggestion.PNG)
 ![Search Results](./public/search-result.PNG)
 ![No internet error](./public/no-internet.PNG)
+![Reponsive UI - Search](./public/mobile-1.PNG)
+![Reponsive UI - Results](./public/mobile-2.PNG)
