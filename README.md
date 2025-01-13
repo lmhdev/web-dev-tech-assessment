@@ -94,10 +94,19 @@ src/
 └── main.tsx      # Entry point for the application
 ```
 
-## Application screenshot
+## 📷 Application screenshot
 
+**Search Bar Suggestions**
 ![Search Bar Suggestions](./public/search-suggestion.PNG)
+
+**Search Results**
 ![Search Results](./public/search-result.PNG)
+
+**No Internet Error**
 ![No internet error](./public/no-internet.PNG)
+
+**Reponsive UI - Search**
 ![Reponsive UI - Search](./public/mobile-1.PNG)
+
+**Reponsive UI - Results**
 ![Reponsive UI - Results](./public/mobile-2.PNG)
