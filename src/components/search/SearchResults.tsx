@@ -47,7 +47,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({
             {`Showing ${hasResults ? "1-10" : "0"} of ${pagination.totalItems} results`}
           </div>
         ) : (
-          !loading && <p className="text-center text-gray-600">No results found</p>
+          !loading && (
+            <p className="text-center text-gray-600">No results found</p>
+          )
         )}
 
         {results.map((item) => (
@@ -90,7 +92,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({
             >
               Prev
             </button>
-            <span className="px-4 py-2 text-gray-700 text-center">
+            <span
+              className="px-4 py-2 text-gray-700 text-center"
+              role="presentation"
+            >
               {pagination.current} / {pagination.totalPages}
             </span>
             <button

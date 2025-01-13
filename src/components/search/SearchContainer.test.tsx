@@ -35,17 +35,13 @@ describe("SearchContainer Component", () => {
   it("renders SearchBar and SearchResults components", () => {
     render(<SearchContainer />);
 
-    // SearchBar should render
-    expect(screen.getByRole("textbox")).toBeInTheDocument(); // Assuming SearchBar renders an input element
-
-    // SearchResults placeholder
-    expect(screen.getByText("No results found")).toBeInTheDocument(); // Adjust based on your actual SearchResults behavior
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+    expect(screen.getByText("No results found")).toBeInTheDocument();
   });
 
   it("passes correct props to SearchBar", async () => {
     render(<SearchContainer />);
 
-    // Interact with the SearchBar through its input
     const input = screen.getByRole("textbox");
     userEvent.type(input, "test");
 
