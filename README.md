@@ -105,8 +105,8 @@ src/
 **No Internet Error**
 ![No internet error](./public/no-internet.PNG)
 
-**Reponsive UI - Search**
+**Reponsive UI - Search**  
 ![Reponsive UI - Search](./public/mobile-1.PNG)
 
-**Reponsive UI - Results**
+**Reponsive UI - Results**  
 ![Reponsive UI - Results](./public/mobile-2.PNG)
