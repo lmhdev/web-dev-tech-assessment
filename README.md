@@ -2,7 +2,7 @@
 
 This project is a React application built with Vite and TypeScript. It includes a functional setup with automated testing for quality assurance.
 
-# Deployment Link
+## 🖥 Deployment Link
 You can view the live application here: [Search App - Live Demo](https://web-dev-tech-assessment.vercel.app/)
 
 ---
