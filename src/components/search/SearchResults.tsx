@@ -4,7 +4,7 @@ import { Highlight, Pagination, ResultItem } from "@/types";
 interface SearchResultsProps {
   loading: boolean;
   error: string | null;
-  results: ResultItem[];
+  results: ResultItem[] | null;
   pagination: Pagination;
 }
 
