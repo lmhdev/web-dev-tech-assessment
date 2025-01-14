@@ -44,7 +44,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 
         {hasResults ? (
           <div className="text-gray-800 font-semibold mb-8 text-lg">
-            {`Showing ${hasResults ? "1-10" : "0"} of ${pagination.totalItems} results`}
+            {`Showing ${hasResults ? `1-${Math.min(pagination.totalItems, 10)}` : "0"} of ${pagination.totalItems} results`}
           </div>
         ) : (
           !loading &&

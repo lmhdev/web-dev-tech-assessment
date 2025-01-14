@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>89/89</span>
+                <span class='fraction'>92/92</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.66% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>89/89</span>
+                <span class='fraction'>92/92</span>
             </div>
         
             
@@ -178,7 +178,10 @@
 <a name='L113'></a><a href='#L113'>113</a>
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,10 +232,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -261,7 +266,8 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -299,7 +305,7 @@ import { Highlight, Pagination, ResultItem } from "@/types";
 interface SearchResultsProps {
   loading: boolean;
   error: string | null;
-  results: ResultItem[];
+  results: ResultItem[] | null;
   pagination: Pagination;
 }
 &nbsp;
@@ -329,7 +335,7 @@ const SearchResults: React.FC&lt;SearchResultsProps&gt; = ({
     return parts;
   };
 &nbsp;
-  const hasResults = results.length &gt; 0;
+  const hasResults = results &amp;&amp; results.length &gt; 0;
 &nbsp;
   return (
     &lt;div className="py-10 w-full flex justify-center"&gt;
@@ -342,41 +348,44 @@ const SearchResults: React.FC&lt;SearchResultsProps&gt; = ({
             {`Showing ${hasResults ? <span class="branch-0 cbranch-no" title="branch not covered" >"1-10" : "0"}</span> of ${pagination.totalItems} results`}
           &lt;/div&gt;
         ) : (
-          !loading &amp;&amp; (
+          !loading &amp;&amp;
+          results &amp;&amp; (
             &lt;p className="text-center text-gray-600"&gt;No results found&lt;/p&gt;
           )
         )}
 &nbsp;
-        {results.map((item) =&gt; (
-          &lt;div key={item.DocumentId} className="mb-6"&gt;
-            &lt;a
-              href={item.DocumentURI}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary text-lg font-semibold hover:underline block"
-            &gt;
-              {highlightText(
-                item.DocumentTitle.Text,
-                item.DocumentTitle.Highlights
-              )}
-            &lt;/a&gt;
-            &lt;p
-              className="text-gray-700 text-sm mt-1"
-              data-testid={`excerpt-${item.DocumentId}`}
-            &gt;
-              {highlightText(
-                item.DocumentExcerpt.Text,
-                item.DocumentExcerpt.Highlights
-              )}
-            &lt;/p&gt;
-            &lt;a
-              href={item.DocumentURI}
-              className="text-gray-500 hover:text-gray-600 text-sm mt-1 block break-words"
-            &gt;
-              {item.DocumentURI}
-            &lt;/a&gt;
-          &lt;/div&gt;
-        ))}
+        {hasResults
+          ? results.map((item) =&gt; (
+              &lt;div key={item.DocumentId} className="mb-6"&gt;
+                &lt;a
+                  href={item.DocumentURI}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary text-lg font-semibold hover:underline block"
+                &gt;
+                  {highlightText(
+                    item.DocumentTitle.Text,
+                    item.DocumentTitle.Highlights
+                  )}
+                &lt;/a&gt;
+                &lt;p
+                  className="text-gray-700 text-sm mt-1"
+                  data-testid={`excerpt-${item.DocumentId}`}
+                &gt;
+                  {highlightText(
+                    item.DocumentExcerpt.Text,
+                    item.DocumentExcerpt.Highlights
+                  )}
+                &lt;/p&gt;
+                &lt;a
+                  href={item.DocumentURI}
+                  className="text-gray-500 hover:text-gray-600 text-sm mt-1 block break-words"
+                &gt;
+                  {item.DocumentURI}
+                &lt;/a&gt;
+              &lt;/div&gt;
+            ))
+          : null}
 &nbsp;
         {hasResults &amp;&amp; (
           &lt;div className="mt-4 flex justify-center items-center gap-2"&gt;
@@ -415,7 +424,7 @@ export default SearchResults;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-14T06:37:13.675Z
+                at 2025-01-14T09:38:04.246Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

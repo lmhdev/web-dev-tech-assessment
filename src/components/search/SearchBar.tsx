@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { AiOutlineLoading } from "react-icons/ai";
 
 interface SearchBarProps {
-  fetchResults: () => void;
+  fetchResults: (term: string) => void;
   loadingSuggestions: boolean;
   suggestions: string[];
   showSuggestions: boolean;
@@ -60,7 +60,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   const handleSearch = () => {
     if (query.trim()) {
-      fetchResults();
+      fetchResults(query);
     }
     setShowSuggestions(false);
   };

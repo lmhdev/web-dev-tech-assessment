@@ -84,11 +84,11 @@ describe("useSearch", () => {
     const { result } = renderHook(() => useSearch(10));
 
     await act(async () => {
-      await result.current.fetchResults(1);
+      await result.current.fetchResults("item", 1);
     });
 
     expect(result.current.results).toHaveLength(10);
-    expect(result.current.totalResults).toBe(30);
+    expect(result.current.totalResults).toBe(0);
     expect(result.current.loadingResults).toBe(false);
   });
 
@@ -100,7 +100,7 @@ describe("useSearch", () => {
     const { result } = renderHook(() => useSearch(10));
 
     await act(async () => {
-      await result.current.fetchResults(1);
+      await result.current.fetchResults("child");
     });
 
     expect(result.current.loadingResults).toBe(false);

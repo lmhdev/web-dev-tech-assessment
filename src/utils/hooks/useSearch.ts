@@ -37,7 +37,7 @@ export const useSearch = (pageSize: number = 10) => {
   }, []);
 
   const fetchResults = useCallback(
-    async (page: number = 1) => {
+    async (term: string, page: number = 1) => {
       setLoadingResults(true);
       clearError();
       try {
@@ -49,9 +49,18 @@ export const useSearch = (pageSize: number = 10) => {
 
         const startIdx = (page - 1) * pageSize;
         const endIdx = startIdx + pageSize;
-
         setResults(data.ResultItems.slice(startIdx, endIdx));
-        setTotalResults(data.TotalNumberOfResults);
+
+        const filteredResults = data.ResultItems.filter(
+          (item: ResultItem) =>
+            item.DocumentTitle.Text.toLowerCase().includes(
+              term.toLowerCase()
+            ) ||
+            item.DocumentExcerpt.Text.toLowerCase().includes(term.toLowerCase())
+        );
+
+        setResults(filteredResults.slice(startIdx, endIdx));
+        setTotalResults(filteredResults.length);
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err.message);
