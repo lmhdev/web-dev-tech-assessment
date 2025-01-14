@@ -3,7 +3,7 @@ import { ResultItem, Suggestion } from "@/types";
 import { useError } from "./useError";
 
 export const useSearch = (pageSize: number = 10) => {
-  const [results, setResults] = useState<ResultItem[]>([]);
+  const [results, setResults] = useState<ResultItem[] | null>(null);
   const [totalResults, setTotalResults] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
 

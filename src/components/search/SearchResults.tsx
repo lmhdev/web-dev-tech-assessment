@@ -34,7 +34,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     return parts;
   };
 
-  const hasResults = results.length > 0;
+  const hasResults = results && results.length > 0;
 
   return (
     <div className="py-10 w-full flex justify-center">
@@ -47,41 +47,44 @@ const SearchResults: React.FC<SearchResultsProps> = ({
             {`Showing ${hasResults ? "1-10" : "0"} of ${pagination.totalItems} results`}
           </div>
         ) : (
-          !loading && (
+          !loading &&
+          results && (
             <p className="text-center text-gray-600">No results found</p>
           )
         )}
 
-        {results.map((item) => (
-          <div key={item.DocumentId} className="mb-6">
-            <a
-              href={item.DocumentURI}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary text-lg font-semibold hover:underline block"
-            >
-              {highlightText(
-                item.DocumentTitle.Text,
-                item.DocumentTitle.Highlights
-              )}
-            </a>
-            <p
-              className="text-gray-700 text-sm mt-1"
-              data-testid={`excerpt-${item.DocumentId}`}
-            >
-              {highlightText(
-                item.DocumentExcerpt.Text,
-                item.DocumentExcerpt.Highlights
-              )}
-            </p>
-            <a
-              href={item.DocumentURI}
-              className="text-gray-500 hover:text-gray-600 text-sm mt-1 block break-words"
-            >
-              {item.DocumentURI}
-            </a>
-          </div>
-        ))}
+        {hasResults
+          ? results.map((item) => (
+              <div key={item.DocumentId} className="mb-6">
+                <a
+                  href={item.DocumentURI}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary text-lg font-semibold hover:underline block"
+                >
+                  {highlightText(
+                    item.DocumentTitle.Text,
+                    item.DocumentTitle.Highlights
+                  )}
+                </a>
+                <p
+                  className="text-gray-700 text-sm mt-1"
+                  data-testid={`excerpt-${item.DocumentId}`}
+                >
+                  {highlightText(
+                    item.DocumentExcerpt.Text,
+                    item.DocumentExcerpt.Highlights
+                  )}
+                </p>
+                <a
+                  href={item.DocumentURI}
+                  className="text-gray-500 hover:text-gray-600 text-sm mt-1 block break-words"
+                >
+                  {item.DocumentURI}
+                </a>
+              </div>
+            ))
+          : null}
 
         {hasResults && (
           <div className="mt-4 flex justify-center items-center gap-2">

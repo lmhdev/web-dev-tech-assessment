@@ -18,7 +18,7 @@ describe("useSearch", () => {
   test("initial state is correct", () => {
     const { result } = renderHook(() => useSearch(10));
 
-    expect(result.current.results).toEqual([]);
+    expect(result.current.results).toEqual(null);
     expect(result.current.totalResults).toBe(0);
     expect(result.current.currentPage).toBe(1);
     expect(result.current.suggestions).toEqual([]);
@@ -43,7 +43,11 @@ describe("useSearch", () => {
       await result.current.fetchSuggestions("term");
     });
 
-    expect(result.current.suggestions).toEqual(["suggestion 1", "suggestion 2", "suggestion 3"]);
+    expect(result.current.suggestions).toEqual([
+      "suggestion 1",
+      "suggestion 2",
+      "suggestion 3",
+    ]);
     expect(global.fetch).toHaveBeenCalledWith(
       "https://gist.githubusercontent.com/yuhong90/b5544baebde4bfe9fe2d12e8e5502cbf/raw/e026dab444155edf2f52122aefbb80347c68de86/suggestion.json"
     );
@@ -54,7 +58,7 @@ describe("useSearch", () => {
     global.fetch = vi.fn().mockRejectedValue(new Error("Fetch failed"));
 
     const { result } = renderHook(() => useSearch(10));
-    
+
     await act(async () => {
       await result.current.fetchSuggestions("term");
     });
@@ -65,7 +69,10 @@ describe("useSearch", () => {
 
   test("fetchResults sets results correctly", async () => {
     const mockResponse = {
-      ResultItems: Array.from({ length: 30 }, (_, index) => ({ id: index, name: `Item ${index}` })),
+      ResultItems: Array.from({ length: 30 }, (_, index) => ({
+        id: index,
+        name: `Item ${index}`,
+      })),
       TotalNumberOfResults: 30,
     };
 
@@ -86,7 +93,9 @@ describe("useSearch", () => {
   });
 
   test("fetchResults handles errors", async () => {
-    global.fetch = vi.fn().mockRejectedValue(new Error("Failed to fetch results"));
+    global.fetch = vi
+      .fn()
+      .mockRejectedValue(new Error("Failed to fetch results"));
 
     const { result } = renderHook(() => useSearch(10));
 
