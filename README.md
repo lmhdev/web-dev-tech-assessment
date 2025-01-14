@@ -20,8 +20,8 @@ Ensure you have the following installed:
 1. **Clone the repository**:
 
    ```bash
-   git clone [<repository_url>](https://github.com/lmhdev/web-dev-tech-assessment)
-   cd <repository_directory>
+   git clone https://github.com/lmhdev/web-dev-tech-assessment
+   cd web-dev-tech-assessment
    ```
 
 2. **Install dependencies**:
