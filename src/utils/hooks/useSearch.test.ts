@@ -40,7 +40,7 @@ describe("useSearch", () => {
     const { result } = renderHook(() => useSearch(10));
 
     await act(async () => {
-      await result.current.fetchSuggestions("term");
+      await result.current.fetchSuggestions("suggestion");
     });
 
     expect(result.current.suggestions).toEqual([

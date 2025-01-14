@@ -24,7 +24,10 @@ export const useSearch = (pageSize: number = 10) => {
     try {
       const response = await fetch(suggestionsURL);
       const data: Suggestion = await response.json();
-      setSuggestions(data.suggestions.slice(0, 6));
+      const filteredSuggestion = data.suggestions.filter((item: string) =>
+        item.includes(term)
+      );
+      setSuggestions(filteredSuggestion.slice(0, 6));
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
