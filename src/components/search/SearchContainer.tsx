@@ -7,6 +7,7 @@ const SearchContainer: React.FC = () => {
   const [pageSize] = useState<number>(10);
 
   const {
+    searchTerm,
     results,
     totalResults,
     fetchResults,
@@ -38,6 +39,7 @@ const SearchContainer: React.FC = () => {
         loadingSuggestions={loadingSuggestions}
       />
       <SearchResults
+        searchTerm={searchTerm}
         loading={loadingResults}
         error={error}
         results={results}

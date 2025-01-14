@@ -92,7 +92,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const handleSuggestionClick = (suggestion: string) => {
     setQuery(suggestion);
     setShowSuggestions(false);
-    handleSearch();
+    fetchResults(suggestion);
   };
 
   return (
@@ -125,7 +125,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <FaSearch />
           <span className="ml-1">Search</span>
         </button>
-        {showSuggestions && (
+        {showSuggestions ? (
           <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-lg mt-2 z-10">
             {loadingSuggestions ? (
               <div className="flex justify-center items-center py-4">
@@ -145,7 +145,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               </li>
             ))}
           </ul>
-        )}
+        ) : null}
       </div>
     </div>
   );

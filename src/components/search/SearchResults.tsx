@@ -1,7 +1,8 @@
 import React from "react";
-import { Highlight, Pagination, ResultItem } from "@/types";
+import { Pagination, ResultItem } from "@/types";
 
 interface SearchResultsProps {
+  searchTerm: string;
   loading: boolean;
   error: string | null;
   results: ResultItem[] | null;
@@ -9,25 +10,43 @@ interface SearchResultsProps {
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({
+  searchTerm,
   loading,
   error,
   results,
   pagination,
 }) => {
-  const highlightText = (text: string, highlights: Highlight[]) => {
-    let currentIndex = 0;
+  const highlightTextInParagraph = (
+    text: string,
+    searchTerm: string
+  ): React.ReactNode[] => {
+    if (!searchTerm) return [text];
+
     const parts: React.ReactNode[] = [];
-    highlights.forEach(({ BeginOffset, EndOffset }, index) => {
-      if (currentIndex < BeginOffset) {
-        parts.push(text.substring(currentIndex, BeginOffset));
+    let currentIndex = 0;
+
+    const lowerCaseText = text.toLowerCase();
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+    let startIndex = lowerCaseText.indexOf(lowerCaseSearchTerm);
+
+    while (startIndex !== -1) {
+      if (currentIndex < startIndex) {
+        parts.push(text.substring(currentIndex, startIndex));
       }
+
+      const endIndex = startIndex + searchTerm.length;
       parts.push(
-        <mark key={`highlight-${index}`}>
-          {text.substring(BeginOffset, EndOffset)}
+        <mark key={`highlight-${currentIndex}`}>
+          {text.substring(startIndex, endIndex)}
         </mark>
       );
-      currentIndex = EndOffset;
-    });
+
+      currentIndex = endIndex;
+
+      startIndex = lowerCaseText.indexOf(lowerCaseSearchTerm, startIndex + 1);
+    }
+
     if (currentIndex < text.length) {
       parts.push(text.substring(currentIndex));
     }
@@ -62,18 +81,18 @@ const SearchResults: React.FC<SearchResultsProps> = ({
                   rel="noopener noreferrer"
                   className="text-primary text-lg font-semibold hover:underline block"
                 >
-                  {highlightText(
+                  {highlightTextInParagraph(
                     item.DocumentTitle.Text,
-                    item.DocumentTitle.Highlights
+                    searchTerm
                   )}
                 </a>
                 <p
                   className="text-gray-700 text-sm mt-1"
                   data-testid={`excerpt-${item.DocumentId}`}
                 >
-                  {highlightText(
+                  {highlightTextInParagraph(
                     item.DocumentExcerpt.Text,
-                    item.DocumentExcerpt.Highlights
+                    searchTerm
                   )}
                 </p>
                 <a

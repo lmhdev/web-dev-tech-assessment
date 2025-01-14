@@ -17,11 +17,11 @@ describe("SearchResults Component", () => {
       DocumentURI: "https://example.com/doc1",
       DocumentTitle: {
         Text: "Sample Title 1",
-        Highlights: [{ BeginOffset: 7, EndOffset: 12 }], // Highlight "Title"
+        Highlights: [{ BeginOffset: 7, EndOffset: 12 }],
       },
       DocumentExcerpt: {
         Text: "This is a sample excerpt highlighting terms.",
-        Highlights: [{ BeginOffset: 10, EndOffset: 16 }], // Highlight "sample"
+        Highlights: [{ BeginOffset: 10, EndOffset: 16 }],
       },
     },
     {
@@ -29,7 +29,7 @@ describe("SearchResults Component", () => {
       DocumentURI: "https://example.com/doc2",
       DocumentTitle: {
         Text: "Another Title Example",
-        Highlights: [{ BeginOffset: 8, EndOffset: 13 }], // Highlight "Title"
+        Highlights: [{ BeginOffset: 8, EndOffset: 13 }],
       },
       DocumentExcerpt: {
         Text: "This excerpt does not contain highlights.",
@@ -41,6 +41,7 @@ describe("SearchResults Component", () => {
   test("displays loading message when loading is true", () => {
     render(
       <SearchResults
+        searchTerm="test"
         loading={true}
         error={null}
         results={[]}
@@ -54,6 +55,7 @@ describe("SearchResults Component", () => {
     const errorMessage = "Something went wrong.";
     render(
       <SearchResults
+        searchTerm="test"
         loading={false}
         error={errorMessage}
         results={[]}
@@ -66,6 +68,7 @@ describe("SearchResults Component", () => {
   test("displays results with highlights", () => {
     const { container } = render(
       <SearchResults
+        searchTerm="title"
         loading={false}
         error={null}
         results={mockResults}
@@ -74,14 +77,18 @@ describe("SearchResults Component", () => {
     );
 
     const marks = container.querySelectorAll("mark");
-    expect(marks).toHaveLength(3);
+
+    expect(marks).toHaveLength(2);
+
     expect(marks[0]).toHaveTextContent("Title");
-    expect(marks[1]).toHaveTextContent("sample");
+
+    expect(marks[1]).toHaveTextContent("Title");
   });
 
   test("displays 'No results found' when results are empty", () => {
     render(
       <SearchResults
+        searchTerm="test"
         loading={false}
         error={null}
         results={[]}
@@ -94,6 +101,7 @@ describe("SearchResults Component", () => {
   test("paginates correctly", () => {
     render(
       <SearchResults
+        searchTerm="test"
         loading={false}
         error={null}
         results={mockResults}
@@ -112,6 +120,7 @@ describe("SearchResults Component", () => {
   test("does not display highlights when there are no highlights", () => {
     render(
       <SearchResults
+        searchTerm="test"
         loading={false}
         error={null}
         results={[mockResults[1]]} // Second result has no excerpt highlights

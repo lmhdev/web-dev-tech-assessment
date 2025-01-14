@@ -3,6 +3,7 @@ import { ResultItem, Suggestion } from "@/types";
 import { useError } from "./useError";
 
 export const useSearch = (pageSize: number = 10) => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [results, setResults] = useState<ResultItem[] | null>(null);
   const [totalResults, setTotalResults] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -28,6 +29,9 @@ export const useSearch = (pageSize: number = 10) => {
         item.includes(term)
       );
       setSuggestions(filteredSuggestion.slice(0, 6));
+      if (filteredSuggestion.length === 0) {
+        setShowSuggestions(false);
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -41,6 +45,7 @@ export const useSearch = (pageSize: number = 10) => {
 
   const fetchResults = useCallback(
     async (term: string, page: number = 1) => {
+      setSearchTerm(term);
       setLoadingResults(true);
       clearError();
       try {
@@ -78,6 +83,7 @@ export const useSearch = (pageSize: number = 10) => {
   );
 
   return {
+    searchTerm,
     results,
     totalResults,
     suggestions,
