@@ -94,7 +94,7 @@ src/
 └── main.tsx      # Entry point for the application
 ```
 
-## 📷 Application screenshot
+## 📷 Application Screenshots
 
 **Search Bar Suggestions**
 ![Search Bar Suggestions](./public/search-suggestion.PNG)
@@ -110,3 +110,6 @@ src/
 
 **Reponsive UI - Results**  
 ![Reponsive UI - Results](./public/mobile-2.PNG)
+
+**Unit Tests Results**  
+![Unit Tests Results](./public/test-pass.PNG)
