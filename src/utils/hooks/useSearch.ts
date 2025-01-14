@@ -15,13 +15,14 @@ export const useSearch = (pageSize: number = 10) => {
 
   const { error, setError, clearError } = useError();
 
+  const resultsURL = import.meta.env.VITE_API_ENDPOINT_RESULT;
+  const suggestionsURL = import.meta.env.VITE_API_ENDPOINT_SUGGESTION;
+
   const fetchSuggestions = useCallback(async (term: string) => {
     setLoadingSuggestions(true);
     clearError();
     try {
-      const response = await fetch(
-        `https://gist.githubusercontent.com/yuhong90/b5544baebde4bfe9fe2d12e8e5502cbf/raw/e026dab444155edf2f52122aefbb80347c68de86/suggestion.json`
-      );
+      const response = await fetch(suggestionsURL);
       const data: Suggestion = await response.json();
       setSuggestions(data.suggestions.slice(0, 6));
     } catch (err: unknown) {
@@ -40,9 +41,7 @@ export const useSearch = (pageSize: number = 10) => {
       setLoadingResults(true);
       clearError();
       try {
-        const response = await fetch(
-          `https://gist.githubusercontent.com/yuhong90/b5544baebde4bfe9fe2d12e8e5502cbf/raw/44deafab00fc808ed7fa0e59a8bc959d255b9785/queryResult.json`
-        );
+        const response = await fetch(resultsURL);
         if (!response.ok) {
           throw new Error("Failed to fetch results");
         }
